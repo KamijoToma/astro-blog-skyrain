@@ -40,6 +40,7 @@
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/sitemap": "^3.6.0",
     "@pagefind/default-ui": "^1.4.0",
+    "@unocss/astro": "^66.6.7",
     "@unocss/reset": "^66.5.10",
     "astro": "^5.16.6",
     "hast-util-select": "^6.0.4",
