@@ -52,7 +52,7 @@ function makeSafeGetter<T>(
     try {
       const cached = cache.get(url)
       if (cached) return cached
-      const response = await fetch(url)
+      const response = await fetch(url, { signal: AbortSignal.timeout(3000) })
       if (!response.ok)
         throw new Error(
           formatError(`Failed to fetch ${url}`, `Error ${response.status}: ${response.statusText}`)
@@ -60,8 +60,7 @@ function makeSafeGetter<T>(
       const result = await handleResponse(response)
       cache.set(url, result)
       return result
-    } catch (e) {
-      console.error(formatError(`[error] astro-embed`, (e as Error)?.message ?? e, `URL: ${url}`))
+    } catch {
       return undefined
     }
   }

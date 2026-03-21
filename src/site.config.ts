@@ -1,5 +1,7 @@
 import type { CardListData, Config, IntegrationUserConfig, ThemeUserConfig } from 'astro-pure/types'
 
+const siteUrl = 'https://astro-blog-skyrain.pages.dev'
+
 export const theme: ThemeUserConfig = {
   // [Basic]
   /** Title for your website. Will be used in metadata and as browser tab title. */
@@ -106,8 +108,8 @@ export const integ: IntegrationUserConfig = {
     applyTip: [
       { name: 'Name', val: theme.title },
       { name: 'Desc', val: theme.description || 'Null' },
-      { name: 'Link', val: 'https://astro-pure.js.org/' },
-      { name: 'Avatar', val: 'https://astro-pure.js.org/favicon/favicon.ico' }
+      { name: 'Link', val: `${siteUrl}/` },
+      { name: 'Avatar', val: `${siteUrl}/favicon/favicon.ico` }
     ],
     // Cache avatars in `public/avatars/` to improve user experience.
     cacheAvatar: false
