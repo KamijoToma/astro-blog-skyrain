@@ -1,4 +1,4 @@
-import type { PagesFunction } from '@cloudflare/workers-types'
+import type { D1Database } from '@cloudflare/workers-types'
 
 export interface Env {
   BLOG_DB: D1Database
@@ -38,12 +38,12 @@ async function verifyTurnstile(token: string, secret: string): Promise<boolean> 
     body: formData
   })
 
-  const outcome = await result.json()
+  const outcome = await result.json() as { success?: boolean }
   return outcome.success === true
 }
 
 // GET /api/comments?slug=xxx - List approved comments
-export const onRequestGet: PagesFunction<Env> = async (context) => {
+export const onRequestGet = async (context: { request: Request; env: Env }) => {
   const { request, env } = context
   const url = new URL(request.url)
   const slug = url.searchParams.get('slug')
@@ -76,7 +76,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 }
 
 // POST /api/comments - Create new comment
-export const onRequestPost: PagesFunction<Env> = async (context) => {
+export const onRequestPost = async (context: { request: Request; env: Env }) => {
   const { request, env } = context
   
   // Parse request body

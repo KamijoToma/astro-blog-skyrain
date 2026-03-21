@@ -13,6 +13,8 @@
     // Others
     "baseUrl": ".",
     "strictNullChecks": true,
+    // Workers Types
+    "types": ["@cloudflare/workers-types"],
     // Paths
     "paths": {
       "@/assets/*": ["src/assets/*"],

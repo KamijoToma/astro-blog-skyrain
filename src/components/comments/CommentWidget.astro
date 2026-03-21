@@ -75,14 +75,14 @@ const { slug, path } = Astro.props
     
     try {
       const res = await fetch(`/api/comments?slug=${encodeURIComponent(slug)}`)
-      const data = await res.json()
+      const data = await res.json() as { comments?: any[] }
       
       if (!data.comments || data.comments.length === 0) {
         listEl.innerHTML = '<p class="text-gray-500 text-sm">暂无评论，来发表第一条吧！</p>'
         return
       }
       
-      listEl.innerHTML = data.comments.map((c: any) => `
+      listEl.innerHTML = data.comments.map((c) => `
         <div class="comment-item p-4 bg-gray-50 dark:bg-gray-900 rounded-lg ${c.parent_id ? 'ml-8 mt-2' : ''}">
           <div class="flex items-center gap-2 mb-2">
             <span class="font-medium">${escapeHtml(c.author_name)}</span>
@@ -130,7 +130,7 @@ const { slug, path } = Astro.props
         })
       })
       
-      const data = await res.json()
+      const data = await res.json() as { success?: boolean; error?: string }
       
       if (data.success) {
         alert('评论已提交，审核通过后显示')
@@ -152,4 +152,4 @@ const { slug, path } = Astro.props
 </script>
 
 {/* Load Turnstile script */}
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
