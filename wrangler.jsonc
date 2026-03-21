@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "astro-blog-skyrain",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-03-22",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "BLOG_DB",
+      "database_name": "astro-blog-comments",
+      "database_id": "<production-d1-id>"
+    }
+  ],
+  "vars": {
+    "COMMENT_STATUS_DEFAULT": "pending",
+    "COMMENT_RATE_LIMIT_WINDOW": "60",
+    "COMMENT_RATE_LIMIT_MAX": "3"
+  },
+  "env": {
+    "preview": {
+      "d1_databases": [
+        {
+          "binding": "BLOG_DB",
+          "database_name": "astro-blog-comments-preview",
+          "database_id": "<preview-d1-id>"
+        }
+      ]
+    }
+  }
+}

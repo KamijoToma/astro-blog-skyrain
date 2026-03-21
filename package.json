@@ -18,7 +18,12 @@
     "lint": "eslint --fix 'src/**/*.{js,ts,jsx,tsx,astro}'",
     "yijiansilian": "bun lint && bun sync && bun check && bun format",
     "clean": "rm -rf .astro .vercel dist",
-    "cache:avatars": "tsx preset/scripts/cacheAvatars.ts"
+    "cache:avatars": "tsx preset/scripts/cacheAvatars.ts",
+    "cf:dev": "npm run build && wrangler pages dev dist",
+    "cf:deploy": "npm run build && wrangler pages deploy",
+    "db:migrate:create": "wrangler d1 migrations create BLOG_DB",
+    "db:migrate:local": "wrangler d1 migrations apply BLOG_DB --local",
+    "db:migrate:remote": "wrangler d1 migrations apply BLOG_DB --remote"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
