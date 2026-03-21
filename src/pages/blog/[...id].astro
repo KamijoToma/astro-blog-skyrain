@@ -7,7 +7,7 @@ import PostLayout from '@/layouts/BlogPost.astro'
 export const prerender = true
 
 export async function getStaticPaths() {
-  const posts = sortMDByDate(await getBlogCollection())
+  const posts = sortMDByDate(await getBlogCollection()) as CollectionEntry<'blog'>[]
   return posts.map((post) => ({
     params: { id: post.id },
     props: { post, posts }
@@ -19,7 +19,7 @@ type Props = {
   posts: CollectionEntry<'blog'>[]
 }
 
-const { post, posts } = Astro.props
+const { post, posts } = Astro.props as Props
 const { Content, headings, remarkPluginFrontmatter } = await render(post)
 ---
 

@@ -14,7 +14,7 @@ import CommentWidget from '@/components/comments/CommentWidget.astro'
 
 interface Props {
   post: CollectionEntry<'blog'>
-  posts: CollectionEntry<'blog'>
+  posts: CollectionEntry<'blog'>[]
   headings: MarkdownHeading[]
   remarkPluginFrontmatter: Record<string, unknown>
 }
