@@ -8,7 +8,7 @@
     {
       "binding": "BLOG_DB",
       "database_name": "astro-blog-comments",
-      "database_id": "<production-d1-id>"
+      "database_id": "9faddd83-cc4d-4e36-8c61-69a343ac1a2e"
     }
   ],
   "vars": {
@@ -22,7 +22,7 @@
         {
           "binding": "BLOG_DB",
           "database_name": "astro-blog-comments-preview",
-          "database_id": "<preview-d1-id>"
+          "database_id": "62edddd2-cd36-4b49-a240-b0ea71069d4d"
         }
       ]
     }
