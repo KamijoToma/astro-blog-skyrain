@@ -90,39 +90,41 @@ const footerLink1 = footerConf.links?.filter(({ pos }) => pos === 1) || []
 </style>
 
 <script>
-  const el = document.querySelector<HTMLSpanElement>('.build-info')
-  if (!el) return
+  ;(() => {
+    const el = document.querySelector<HTMLSpanElement>('.build-info')
+    if (!el) return
 
-  const commit = el.dataset.commit
-  const date = el.dataset.date
-  if (!commit || !date) return
+    const commit = el.dataset.commit
+    const date = el.dataset.date
+    if (!commit || !date) return
 
-  let showingDate = false
+    let showingDate = false
 
-  const swap = (text: string) => {
-    const onEnd = () => {
-      el.textContent = text
-      el.classList.remove('opacity-0')
-      el.removeEventListener('transitionend', onEnd)
+    const swap = (text: string) => {
+      const onEnd = () => {
+        el.textContent = text
+        el.classList.remove('opacity-0')
+        el.removeEventListener('transitionend', onEnd)
+      }
+      el.addEventListener('transitionend', onEnd)
+      el.classList.add('opacity-0')
     }
-    el.addEventListener('transitionend', onEnd)
-    el.classList.add('opacity-0')
-  }
 
-  el.addEventListener('mouseenter', () => {
-    if (!showingDate) {
-      showingDate = true
-      swap(date)
-    }
-  })
-  el.addEventListener('mouseleave', () => {
-    if (showingDate) {
-      showingDate = false
-      swap(commit)
-    }
-  })
-  el.addEventListener('touchstart', () => {
-    showingDate = !showingDate
-    swap(showingDate ? date : commit)
-  })
+    el.addEventListener('mouseenter', () => {
+      if (!showingDate) {
+        showingDate = true
+        swap(date)
+      }
+    })
+    el.addEventListener('mouseleave', () => {
+      if (showingDate) {
+        showingDate = false
+        swap(commit)
+      }
+    })
+    el.addEventListener('touchstart', () => {
+      showingDate = !showingDate
+      swap(showingDate ? date : commit)
+    })
+  })()
 </script>
