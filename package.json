@@ -32,7 +32,7 @@
     "@unocss/astro": "^66.6.7",
     "@waline/client": "^3.12.2",
     "astro": "^5.17.3",
-    "astro-pure": "1.4.1",
+    "astro-pure": "workspace:*",
     "katex": "^0.16.33",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
