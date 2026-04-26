@@ -1,0 +1,34 @@
+---
+const { class: className } = Astro.props
+---
+
+<div id="cwd-comments" class={className}>
+  加载评论中...
+</div>
+
+<script is:inline src="https://unpkg.com/cwd-widget@0.1.11/dist/cwd.js"></script>
+<script is:inline>
+  ;(function initCWD() {
+    var el = document.getElementById('cwd-comments')
+    if (!el) return
+
+    var comments = new window.CWDComments({
+      el: '#cwd-comments',
+      apiBaseUrl: 'https://cwd-api-skyrain.aquanetwork.workers.dev',
+      postSlug: window.location.origin + window.location.pathname,
+      lang: 'zh-CN',
+      theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+      pageSize: 10,
+    })
+    comments.mount()
+
+    var observer = new MutationObserver(function() {
+      var isDark = document.documentElement.classList.contains('dark')
+      comments.updateConfig({ theme: isDark ? 'dark' : 'light' })
+    })
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+  })()
+</script>

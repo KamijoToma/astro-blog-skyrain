@@ -10,7 +10,7 @@ import { ArticleBottom, Copyright, Hero, TOC } from 'astro-pure/components/pages
 import config from 'virtual:config'
 import PageLayout from '@/layouts/ContentLayout.astro'
 import { PageInfo } from '@/components/waline'
-import CommentWidget from '@/components/comments/CommentWidget.astro'
+import CWDComment from '@/components/comments/CWDComment.astro'
 
 interface Props {
   post: CollectionEntry<'blog'>
@@ -68,7 +68,7 @@ const primaryColor = data.heroImage?.color ?? 'hsl(var(--primary) / var(--un-tex
     {/* Comment */
     !isDraft && enableComment && (
       <div class='mt-3 sm:mt-6'>
-        <CommentWidget slug={id} path={`/blog/${id}`} />
+        <CWDComment />
       </div>
     )}
   </Fragment>
