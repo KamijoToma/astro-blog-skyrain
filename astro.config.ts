@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process'
 import { rehypeHeadingIds } from '@astrojs/markdown-remark'
 import AstroPureIntegration from 'astro-pure'
 import { defineConfig, fontProviders } from 'astro/config'
@@ -22,7 +23,20 @@ import {
 import config from './src/site.config.ts'
 
 // https://astro.build/config
+const commitHash = execSync('git rev-parse --short HEAD').toString().trim()
+const now = new Date()
+const pad2 = (n: number) => String(n).padStart(2, '0')
+const buildDate = `${String(now.getFullYear()).slice(2)}${pad2(now.getMonth() + 1)}${pad2(now.getDate())}.${pad2(now.getHours())}${pad2(now.getMinutes())}`
+
 export default defineConfig({
+  // [Build-time constants]
+  vite: {
+    define: {
+      __COMMIT_HASH__: JSON.stringify(commitHash),
+      __BUILD_DATE__: JSON.stringify(buildDate)
+    }
+  },
+
   // [Basic]
   site: 'https://astro-blog-skyrain.pages.dev',
   // Deploy to a sub path
