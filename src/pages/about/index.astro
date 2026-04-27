@@ -16,22 +16,29 @@ const headings = [
 
 <PageLayout title='关于' {headings} comment>
   <p>Developer / 观察者 / 御坂爱好者</p>
-  
+
   <p>
     你好，我是 <strong>Rainight</strong>（也写作 SkyRain），一个喜欢在代码和文字间游走的开发者。
-    目前就读于 <strong>燕山大学 (YSU)</strong>，常驻中国大陆。
+    {/* 恭喜你在git历史里发现了一些痕迹 */}
+    常驻中国大陆。
   </p>
-  
+
   <p>
-    我的 GitHub 签名是：「<em>是那个叫茵什么克丝的小姐吗？</em>」——如果你也看懂了，那我们可能是同类人。
+    我的 GitHub 签名是：「<em>是那个叫茵什么克丝的小姐吗？</em
+    >」——如果你也看懂了，那我们可能是同类人。
     <Spoiler>对，就是那个会放电的萝莉！</Spoiler>
   </p>
-  
+
   <p>
-    你可以通过邮件联系到我：<a href="mailto:admin@misakacloud.net">admin@misakacloud.net</a>
+    你可以通过邮件联系到我：<a href='mailto:admin@misakacloud.net'>admin@misakacloud.net</a>
   </p>
-  
-  <Button title='GitHub Profile' class='w-fit' href='https://github.com/KamijoToma' variant='ahead' />
+
+  <Button
+    title='GitHub Profile'
+    class='w-fit'
+    href='https://github.com/KamijoToma'
+    variant='ahead'
+  />
 
   {/* hobbies */}
   <h2 id='hobbies'>兴趣爱好</h2>
@@ -109,9 +116,7 @@ const headings = [
 
   {/* social-networks */}
   <h2 id='social-networks'>社交账号</h2>
-  <p>
-    欢迎关注我，或者直接通过 Telegram 联系。我喜欢和有趣的人交流技术、游戏和动画。
-  </p>
+  <p>欢迎关注我，或者直接通过 Telegram 联系。我喜欢和有趣的人交流技术、游戏和动画。</p>
   <Substats
     stats={[
       {
@@ -143,8 +148,8 @@ const headings = [
   {/* gossips */}
   <h2 id='gossips'>碎碎念</h2>
   <Collapse title='为什么叫 Rainight？'>
-    Rain + night = Rainight。喜欢在雨夜写代码的感觉，安静而专注。
-    也谐音 "Right"，希望做的每个决定都是正确的。
+    Rain + night = Rainight。喜欢在雨夜写代码的感觉，安静而专注。 也谐音
+    "Right"，希望做的每个决定都是正确的。
   </Collapse>
   <Collapse title='关于头像'>
     如果你认出了我的头像，那你一定知道「某科学的超电磁炮」。
@@ -166,20 +171,24 @@ const headings = [
       },
       {
         date: '2025-03',
-        content: '从 Hexo 迁移到 <a href="https://astro.build/" target="_blank">Astro</a>，使用 <a href="https://github.com/cworld1/astro-theme-pure" target="_blank">Pure 主题</a>'
+        content:
+          '从 Hexo 迁移到 <a href="https://astro.build/" target="_blank">Astro</a>，使用 <a href="https://github.com/cworld1/astro-theme-pure" target="_blank">Pure 主题</a>'
       },
       {
         date: '2025-03-22',
-        content: '部署到 <a href="https://cloudflare.com" target="_blank">Cloudflare Pages</a>，自建评论系统上线'
+        content:
+          '部署到 <a href="https://cloudflare.com" target="_blank">Cloudflare Pages</a>，自建评论系统上线'
       }
     ]}
   />
-  <p>
-    本博客的顺利运行离不开以下优秀项目和服务商：
-  </p>
+  <p>本博客的顺利运行离不开以下优秀项目和服务商：</p>
   <ul>
     <li>框架：<a href='https://astro.build/' target='_blank'>Astro</a></li>
-    <li>主题：<a href='https://github.com/cworld1/astro-theme-pure' target='_blank'>Astro Theme Pure</a></li>
+    <li>
+      主题：<a href='https://github.com/cworld1/astro-theme-pure' target='_blank'
+        >Astro Theme Pure</a
+      >
+    </li>
     <li>托管：<a href='https://cloudflare.com/' target='_blank'>Cloudflare Pages</a></li>
     <li>评论：自建系统 (Cloudflare D1 + Functions)</li>
     <li>统计：<a href='https://github.com/spencerwooo/substats' target='_blank'>Substats</a></li>
