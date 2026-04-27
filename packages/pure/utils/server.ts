@@ -1,4 +1,4 @@
-import { type CollectionEntry, type CollectionKey, getCollection } from 'astro:content'
+import { getCollection, type CollectionEntry, type CollectionKey } from 'astro:content'
 
 type Collections = CollectionEntry<CollectionKey>[]
 

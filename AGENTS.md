@@ -40,18 +40,21 @@ astro-blog-skyrain/
 ### ⚠️ 强制规则
 
 **1. 推送前必须本地验证**
+
 - 所有更改必须先本地构建验证
 - 命令: `bun run build`
 - 要求: 0 errors，退出码 0
 - **严禁未经验证直接 push**
 
 **2. Git 身份**
+
 ```bash
 git config user.name "Kimi Claw"
 git config user.email "kimi.claw@openclaw.ai"
 ```
 
 **3. 构建命令**
+
 - 使用 `bun run build`，不是 `npm run build`
 - 输出目录: `dist/`
 - 兼容性日期: `2025-03-21`（不能是未来日期）
@@ -63,23 +66,27 @@ git config user.email "kimi.claw@openclaw.ai"
 ### 启动本地服务器
 
 **纯静态（无 Functions）:**
+
 ```bash
 bun run build
 python3 -m http.server 4321 --directory dist
 ```
 
 **完整功能（含 Functions + D1）:**
+
 ```bash
 bunx wrangler pages dev dist --port 8080 --ip 0.0.0.0 --d1 BLOG_DB
 ```
 
 **访问地址:**
+
 - http://10.188.96.8:8080
 - http://100.111.93.8:8080 (Tailscale)
 
 ### 端口冲突处理
 
 如果提示 `Address already in use`：
+
 ```bash
 # 查找占用端口的进程
 lsof -i :8080
@@ -141,11 +148,11 @@ bunx wrangler d1 migrations apply astro-blog-comments --remote
 
 ### D1 数据库 ID
 
-| 环境 | 数据库名 | ID |
-|------|----------|-----|
-| Production | astro-blog-comments | `9faddd83-cc4d-4e36-8c61-69a343ac1a2e` |
-| Preview | astro-blog-comments-preview | `62edddd2-cd36-4b49-a240-b0ea71069d4d` |
-| Binding | BLOG_DB | - |
+| 环境       | 数据库名                    | ID                                     |
+| ---------- | --------------------------- | -------------------------------------- |
+| Production | astro-blog-comments         | `9faddd83-cc4d-4e36-8c61-69a343ac1a2e` |
+| Preview    | astro-blog-comments-preview | `62edddd2-cd36-4b49-a240-b0ea71069d4d` |
+| Binding    | BLOG_DB                     | -                                      |
 
 ### Turnstile Keys
 
@@ -163,6 +170,7 @@ wrangler.jsonc 中必须设置为 `2025-03-21`，不能是未来日期。
 ### 类型错误处理
 
 如果遇到 `posts` 类型不匹配：
+
 ```typescript
 // src/pages/blog/[...id].astro
 const posts = sortMDByDate(await getBlogCollection()) as CollectionEntry<'blog'>[]
@@ -172,6 +180,7 @@ const { post, posts } = Astro.props as Props
 ### 评论 API 500 错误
 
 检查：
+
 1. D1 表是否创建（comments, comment_rate_limits）
 2. 本地数据库文件是否正确（可能有多个 .sqlite 文件）
 3. 使用 `wrangler pages dev` 而非纯静态服务器

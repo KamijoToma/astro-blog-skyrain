@@ -3,10 +3,10 @@ import { dirname, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 // Astro
 import type { AstroIntegration, RehypePlugins, RemarkPlugins } from 'astro'
-import { AstroError } from 'astro/errors'
 // Integrations
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
+import { AstroError } from 'astro/errors'
 import UnoCSS from 'unocss/astro'
 
 import rehypeExternalLinks from './plugins/rehype-external-links'

@@ -3,8 +3,8 @@
  * source: https://github.com/withastro/astro/blob/main/packages/astro/src/content/error-map.ts
  */
 
-import { AstroError } from 'astro/errors'
 import type { z } from 'astro:content'
+import { AstroError } from 'astro/errors'
 
 type TypeOrLiteralErrByPathEntry = {
   code: 'invalid_type' | 'invalid_literal'

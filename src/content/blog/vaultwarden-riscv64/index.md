@@ -88,11 +88,11 @@ LicheePi 4A (RevyOS)
 
 Vaultwarden 并非纯 Rust，以下 crate 包含 C/ASM 代码：
 
-| Crate | 版本 | RISC-V 风险 |
-|-------|------|-------------|
-| `ring` | 0.17.14 | **中高风险**。0.17.x 重构了构建逻辑，但 riscv64-musl 不在其 CI 验证目标中。实际上编译通过了。 |
-| `openssl-sys` (vendored) | 0.9.114 | **中高风险**。依赖 GCC 版本，见上。实际通过。 |
-| `libsqlite3-sys` (bundled) | 0.36.0 | 低风险。SQLite 对 RISC-V 支持成熟。 |
+| Crate                      | 版本    | RISC-V 风险                                                                                   |
+| -------------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `ring`                     | 0.17.14 | **中高风险**。0.17.x 重构了构建逻辑，但 riscv64-musl 不在其 CI 验证目标中。实际上编译通过了。 |
+| `openssl-sys` (vendored)   | 0.9.114 | **中高风险**。依赖 GCC 版本，见上。实际通过。                                                 |
+| `libsqlite3-sys` (bundled) | 0.36.0  | 低风险。SQLite 对 RISC-V 支持成熟。                                                           |
 
 ### 2.3 Rust 目标平台
 
@@ -487,28 +487,28 @@ sudo docker start vaultwarden
 
 ### 8.4 安全配置汇总
 
-| 环境变量 | 值 | 说明 |
-|----------|-----|------|
-| `SIGNUPS_ALLOWED` | `false` | 禁止公开注册 |
-| `ADMIN_TOKEN` | Argon2 hash | 管理后台认证 |
-| `DOMAIN` | `https://...ts.net` | WebAuthn / 邮件链接 |
-| `INVITATIONS_ALLOWED` | `false` | 禁止邀请（单人使用时） |
-| `WEB_VAULT_FOLDER` | `/web-vault` | Web 前端路径 |
+| 环境变量              | 值                  | 说明                   |
+| --------------------- | ------------------- | ---------------------- |
+| `SIGNUPS_ALLOWED`     | `false`             | 禁止公开注册           |
+| `ADMIN_TOKEN`         | Argon2 hash         | 管理后台认证           |
+| `DOMAIN`              | `https://...ts.net` | WebAuthn / 邮件链接    |
+| `INVITATIONS_ALLOWED` | `false`             | 禁止邀请（单人使用时） |
+| `WEB_VAULT_FOLDER`    | `/web-vault`        | Web 前端路径           |
 
 ---
 
 ## 9. 踩坑速查表
 
-| 症状 | 原因 | 修复 |
-|------|------|------|
-| `can't find crate for 'core'` | `rustup update` 破坏了预装 target | 不要 `rustup update`，先验证镜像自带版本 |
-| `can't find crate for 'core'`（修复后仍然） | `rust-toolchain.toml` 切换了工具链 | `cd` 进源码目录后 `rustup target add ...` |
-| `dynamically linked` | riscv64 target 没有设 `+crt-static` | `CARGO_TARGET_*_RUSTFLAGS="-C target-feature=+crt-static"` |
-| `Web vault is not found` | 二进制不含前端资源 | 单独下载 `bw_web_builds` 并挂载 |
-| Docker Hub EOF | 国内网络不稳定 | 配置 `registry-mirrors` |
-| `No such device or address` | `docker exec` 无 TTY | 加 `-it` 参数 |
-| `rp.id cannot be used with the current origin` | 缺少 `DOMAIN` 环境变量 | 设置 `DOMAIN=https://...ts.net` |
-| fish shell heredoc 报错 | fish 不支持 `<<` 语法 | 用 `echo \| tee` |
+| 症状                                           | 原因                                | 修复                                                       |
+| ---------------------------------------------- | ----------------------------------- | ---------------------------------------------------------- |
+| `can't find crate for 'core'`                  | `rustup update` 破坏了预装 target   | 不要 `rustup update`，先验证镜像自带版本                   |
+| `can't find crate for 'core'`（修复后仍然）    | `rust-toolchain.toml` 切换了工具链  | `cd` 进源码目录后 `rustup target add ...`                  |
+| `dynamically linked`                           | riscv64 target 没有设 `+crt-static` | `CARGO_TARGET_*_RUSTFLAGS="-C target-feature=+crt-static"` |
+| `Web vault is not found`                       | 二进制不含前端资源                  | 单独下载 `bw_web_builds` 并挂载                            |
+| Docker Hub EOF                                 | 国内网络不稳定                      | 配置 `registry-mirrors`                                    |
+| `No such device or address`                    | `docker exec` 无 TTY                | 加 `-it` 参数                                              |
+| `rp.id cannot be used with the current origin` | 缺少 `DOMAIN` 环境变量              | 设置 `DOMAIN=https://...ts.net`                            |
+| fish shell heredoc 报错                        | fish 不支持 `<<` 语法               | 用 `echo \| tee`                                           |
 
 ---
 

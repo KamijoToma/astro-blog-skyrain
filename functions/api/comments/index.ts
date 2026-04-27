@@ -1,4 +1,8 @@
-import type { D1Database, PagesFunction, Response as WorkerResponse } from '@cloudflare/workers-types'
+import type {
+  D1Database,
+  PagesFunction,
+  Response as WorkerResponse
+} from '@cloudflare/workers-types'
 
 export interface Env {
   BLOG_DB: D1Database
@@ -64,7 +68,9 @@ function isCommentStatus(value: string | undefined): value is CommentStatus {
 }
 
 function getCommentStatus(env: Env): CommentStatus {
-  return isCommentStatus(env.COMMENT_STATUS_DEFAULT) ? env.COMMENT_STATUS_DEFAULT : DEFAULT_COMMENT_STATUS
+  return isCommentStatus(env.COMMENT_STATUS_DEFAULT)
+    ? env.COMMENT_STATUS_DEFAULT
+    : DEFAULT_COMMENT_STATUS
 }
 
 function getPositiveInt(value: string | undefined, fallback: number): number {
@@ -131,7 +137,7 @@ async function hashIP(ip: string, salt: string): Promise<string> {
   const text = new TextEncoder().encode(ip + salt)
   const hashBuffer = await crypto.subtle.digest('SHA-256', text)
   const hashArray = Array.from(new Uint8Array(hashBuffer))
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
 }
 
 // Verify Turnstile token
@@ -145,7 +151,7 @@ async function verifyTurnstile(token: string, secret: string): Promise<boolean> 
     body: formData
   })
 
-  const outcome = await result.json() as { success?: boolean }
+  const outcome = (await result.json()) as { success?: boolean }
   return outcome.success === true
 }
 
@@ -164,7 +170,9 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
        FROM comments
        WHERE slug = ? AND status = 'approved'
        ORDER BY parent_id IS NOT NULL, parent_id ASC, created_at ASC`
-    ).bind(slug).all<Comment>()
+    )
+      .bind(slug)
+      .all<Comment>()
 
     return json({ comments: results || [] })
   } catch (error) {
@@ -232,7 +240,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const { results: rateResults } = await env.BLOG_DB.prepare(
       `SELECT COUNT(*) AS count FROM comment_rate_limits
        WHERE ip_hash = ? AND path = ? AND created_at > datetime('now', ?)`
-    ).bind(ipHash, path, `-${rateWindow} seconds`).all<CountResult>()
+    )
+      .bind(ipHash, path, `-${rateWindow} seconds`)
+      .all<CountResult>()
 
     const recentRequests = Number(rateResults?.[0]?.count ?? 0)
 
@@ -241,33 +251,36 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     }
 
     // Insert rate limit record
-    await env.BLOG_DB.prepare(
-      `INSERT INTO comment_rate_limits (ip_hash, path) VALUES (?, ?)`
-    ).bind(ipHash, path).run()
+    await env.BLOG_DB.prepare(`INSERT INTO comment_rate_limits (ip_hash, path) VALUES (?, ?)`)
+      .bind(ipHash, path)
+      .run()
 
     // Insert comment
     const { meta } = await env.BLOG_DB.prepare(
       `INSERT INTO comments
        (slug, path, parent_id, author_name, author_email_hash, author_url, content, status, ip_hash, turnstile_ok, user_agent)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    ).bind(
-      slug,
-      path,
-      parentId,
-      authorName,
-      authorEmail ? await hashIP(authorEmail, hashSalt) : null,
-      authorUrl,
-      content,
-      status,
-      ipHash,
-      turnstileOk,
-      request.headers.get('User-Agent')?.slice(0, 255) || null
-    ).run()
+    )
+      .bind(
+        slug,
+        path,
+        parentId,
+        authorName,
+        authorEmail ? await hashIP(authorEmail, hashSalt) : null,
+        authorUrl,
+        content,
+        status,
+        ipHash,
+        turnstileOk,
+        request.headers.get('User-Agent')?.slice(0, 255) || null
+      )
+      .run()
 
     return json({
       success: true,
       id: meta.last_row_id,
-      message: status === 'approved' ? 'Comment submitted' : 'Comment submitted and pending approval'
+      message:
+        status === 'approved' ? 'Comment submitted' : 'Comment submitted and pending approval'
     })
   } catch (error) {
     console.error('Database error:', error)
