@@ -7,12 +7,19 @@ import { FormattedDate, Icon } from '../user'
 interface Props {
   data: InferEntrySchema<'blog'>
   remarkPluginFrontmatter: Record<string, unknown>
+  ai?: 'polish' | 'create'
 }
 
 const {
   data: { title, description, draft, heroImage, publishDate, updatedDate, tags, language },
-  remarkPluginFrontmatter
+  remarkPluginFrontmatter,
+  ai
 } = Astro.props
+
+const aiLabels: Record<string, string> = {
+  polish: 'AI 辅助润色',
+  create: 'AI 创作'
+}
 
 const dateTimeOptions: Intl.DateTimeFormatOptions = {
   month: 'short'
@@ -97,6 +104,16 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
               {i < tags.length - 1 && '/'}
             </div>
           ))}
+        </span>
+      )
+    }
+    {
+      ai && (
+        <span
+          class='inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium'
+          style={`background: hsl(var(--ai-${ai}-bg)); color: hsl(var(--ai-${ai}-fg));`}
+        >
+          {aiLabels[ai]}
         </span>
       )
     }

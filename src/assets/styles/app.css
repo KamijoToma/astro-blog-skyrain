@@ -15,6 +15,12 @@
   --input: 240 5.9% 90%;
   --ring: 240 5.9% 10%;
   --radius: 0.5rem;
+
+  /* AI badge */
+  --ai-polish-bg: 220 89% 96%;
+  --ai-polish-fg: 221 83% 53%;
+  --ai-create-bg: 263 70% 96%;
+  --ai-create-fg: 263 70% 50%;
 }
 .dark {
   /* Primary */
@@ -31,6 +37,12 @@
   --border: 240 3.7% 22.9%;
   --input: 240 3.7% 17.9%;
   --ring: 240 4.9% 83.9%;
+
+  /* AI badge */
+  --ai-polish-bg: 220 70% 18%;
+  --ai-polish-fg: 210 100% 75%;
+  --ai-create-bg: 260 50% 18%;
+  --ai-create-fg: 250 95% 75%;
 }
 :root {
   --un-default-border-color: hsl(var(--border) / 1);
