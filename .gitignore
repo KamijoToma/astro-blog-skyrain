@@ -39,3 +39,12 @@ ignore.*
 bunfig.toml
 /src/content/blog/test.*
 /test/
+
+# Sample posts (kept locally but not tracked)
+/src/content/blog/3d-rendering/
+/src/content/blog/draft.md
+/src/content/blog/improve-concentration/
+/src/content/blog/markdown/
+/src/content/blog/markdown-zh/
+/src/content/blog/music-journey/
+/src/content/blog/using-mdx.mdx
