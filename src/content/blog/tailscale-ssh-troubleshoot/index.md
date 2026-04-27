@@ -10,6 +10,7 @@ tags:
   - ACL
 language: 'zh-CN'
 comment: true
+ai: polish
 ---
 
 ## 摘要

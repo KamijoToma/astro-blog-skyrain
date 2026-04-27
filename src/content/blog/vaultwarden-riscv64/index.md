@@ -13,6 +13,7 @@ tags:
   - 密码管理器
 language: 'zh-CN'
 comment: true
+ai: create
 ---
 
 > 背景：想把密码管理器 Vaultwarden 部署到手边的 LicheePi 4A（RISC-V64）开发板上，通过 Tailscale 内网 HTTPS 访问，实现零信任的私有密码管理。
