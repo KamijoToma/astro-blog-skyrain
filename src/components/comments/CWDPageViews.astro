@@ -1,0 +1,37 @@
+---
+import { Icon } from 'astro-pure/user'
+import { cn } from 'astro-pure/utils'
+
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props
+---
+
+<div class={cn('flex items-center gap-1 text-xs leading-6 text-muted-foreground', className)}>
+  <Icon name='eye' class='size-5' />
+  <span id='cwd-page-pv' class='font-sans'>-</span> 次阅读
+</div>
+
+<script is:inline>
+  ;(function fetchPageViews() {
+    var el = document.getElementById('cwd-page-pv')
+    if (!el) return
+
+    var slug = window.location.origin + window.location.pathname
+    fetch(
+      'https://cwd-api-skyrain.aquanetwork.workers.dev/api/analytics/pv?post_slug=' +
+        encodeURIComponent(slug)
+    )
+      .then(function (r) {
+        return r.json()
+      })
+      .then(function (data) {
+        if (el && typeof data.pv === 'number') {
+          el.textContent = String(data.pv)
+        }
+      })
+      .catch(function () {})
+  })()
+</script>
