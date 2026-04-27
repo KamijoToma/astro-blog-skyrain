@@ -24,9 +24,19 @@ import config from './src/site.config.ts'
 
 // https://astro.build/config
 const commitHash = execSync('git rev-parse --short HEAD').toString().trim()
-const now = new Date()
-const pad2 = (n: number) => String(n).padStart(2, '0')
-const buildDate = `${String(now.getFullYear()).slice(2)}${pad2(now.getMonth() + 1)}${pad2(now.getDate())}.${pad2(now.getHours())}${pad2(now.getMinutes())}`
+const buildDate = (() => {
+  const parts = new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  }).formatToParts(new Date())
+  const p = (type: string) => parts.find((x) => x.type === type)!.value
+  return `${p('year').slice(2)}${p('month')}${p('day')}.${p('hour')}${p('minute')}`
+})()
 
 export default defineConfig({
   // [Build-time constants]
